@@ -19,7 +19,8 @@ cores=${cores:-4}
 # configure pkg-config paths if inside buildscripts
 if [ -n "$ndk_triple" ]; then
 	export PKG_CONFIG_SYSROOT_DIR="$prefix_dir"
-	export PKG_CONFIG_LIBDIR="$PKG_CONFIG_SYSROOT_DIR/lib/pkgconfig"
+	# export PKG_CONFIG_LIBDIR="$PKG_CONFIG_SYSROOT_DIR/lib/pkgconfig"
+	export PKG_CONFIG_LIBDIR="$PKG_CONFIG_SYSROOT_DIR/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_SYSROOT_DIR/usr/local/lib/pkgconfig"
 	unset PKG_CONFIG_PATH
 fi
 
