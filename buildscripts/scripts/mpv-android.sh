@@ -19,8 +19,9 @@ fi
 [ -n "$ANDROID_SIGNING_KEY" ] && BUNDLE=1
 
 nativeprefix () {
+	cp -r $BUILD/prefix/$1/usr/* $BUILD/prefix/$1/opt/homebrew/
 	if [ -f $BUILD/prefix/$1/opt/homebrew/lib/libmpv.so ]; then
-		echo $BUILD/prefix/$1
+		echo $BUILD/prefix/$1/opt/homebrew
 	else
 		echo >&2 "Warning: libmpv.so not found in native prefix for $1, support will be omitted"
 	fi
