@@ -1,4 +1,4 @@
-package is.xyz.mpv;
+package top.ourfor.lib.mpv;
 
 // Wrapper for native library
 

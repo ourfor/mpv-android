@@ -1,10 +1,10 @@
-package `is`.xyz.mpv
+package top.ourfor.lib.mpv
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 
-import `is`.xyz.mpv.MPVLib.mpvFormat.*
+import top.ourfor.lib.mpv.MPVLib.mpvFormat.*
 import android.os.Build
 import android.os.Environment
 import android.preference.PreferenceManager
@@ -12,7 +12,7 @@ import android.view.*
 import kotlin.math.abs
 import kotlin.reflect.KProperty
 
-internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(context, attrs), SurfaceHolder.Callback {
+class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(context, attrs), SurfaceHolder.Callback {
     fun initialize(configDir: String, cacheDir: String) {
         MPVLib.create(this.context)
         MPVLib.setOptionString("config", "yes")
@@ -166,40 +166,7 @@ internal class MPVView(context: Context, attrs: AttributeSet) : SurfaceView(cont
     }
 
     fun onKey(event: KeyEvent): Boolean {
-        if (event.action == KeyEvent.ACTION_MULTIPLE)
-            return false
-        if (KeyEvent.isModifierKey(event.keyCode))
-            return false
-
-        var mapped = KeyMapping.map.get(event.keyCode)
-        if (mapped == null) {
-            // Fallback to produced glyph
-            if (!event.isPrintingKey) {
-                if (event.repeatCount == 0)
-                    Log.d(TAG, "Unmapped non-printable key ${event.keyCode}")
-                return false
-            }
-
-            val ch = event.unicodeChar
-            if (ch.and(KeyCharacterMap.COMBINING_ACCENT) != 0)
-                return false // dead key
-            mapped = ch.toChar().toString()
-        }
-
-        if (event.repeatCount > 0)
-            return true // eat event but ignore it, mpv has its own key repeat
-
-        val mod: MutableList<String> = mutableListOf()
-        event.isShiftPressed && mod.add("shift")
-        event.isCtrlPressed && mod.add("ctrl")
-        event.isAltPressed && mod.add("alt")
-        event.isMetaPressed && mod.add("meta")
-
-        val action = if (event.action == KeyEvent.ACTION_DOWN) "keydown" else "keyup"
-        mod.add(mapped)
-        MPVLib.command(arrayOf(action, mod.joinToString("+")))
-
-        return true
+         return true
     }
 
     private fun observeProperties() {
