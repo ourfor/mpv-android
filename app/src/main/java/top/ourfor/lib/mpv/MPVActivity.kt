@@ -757,13 +757,6 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver {
         /******/
         val hiddenButtons = mutableSetOf<Int>()
 
-        if (player.aid == -1)
-            hiddenButtons.add(R.id.backgroundBtn)
-        if (MPVLib.getPropertyInt("chapter-list/count") ?: 0 == 0)
-            hiddenButtons.add(R.id.rowChapter)
-        if (autoRotationMode == "auto")
-            hiddenButtons.add(R.id.orientationBtn)
-
     }
 
     private var activityResultCallbacks: MutableMap<Int, ActivityResultCallback> = mutableMapOf()
@@ -806,8 +799,6 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver {
     }
 
     private fun updatePlaybackStatus(paused: Boolean) {
-        val r = if (paused) R.drawable.ic_play_arrow_black_24dp else R.drawable.ic_pause_black_24dp
-
         updatePiPParams()
         if (paused)
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
